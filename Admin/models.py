@@ -32,6 +32,9 @@ class Administrators(models.Model):
     class Meta:
         verbose_name_plural = ('Administrators')
 
+    def __str__(self):
+        return self.username
+
 
 class Drivers(models.Model):
     firstname = models.CharField(max_length=255, default=None, null=True)
