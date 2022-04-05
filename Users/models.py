@@ -1,10 +1,9 @@
 # Creating our models from the Users
 from django.db import models
-from Admin.models import Requests, HelpCenter
 
 
 class Users(models.Model):
-    firstname = models.CharField(max_length=255)
+    firstname = models.CharField(max_length=255, null=True)
     lastname = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     email = models.EmailField()
@@ -20,10 +19,10 @@ class Users(models.Model):
 
 
 class Payments(models.Model):
-    user_id = models.IntegerField()
+    user_id = models.IntegerField(null=True)
     mode = models.CharField(max_length=255)
     duration = models.CharField(max_length=255)
-    amount = models.IntegerField()
+    amount = models.DecimalField(max_digits=6, decimal_places=2)
     date_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:

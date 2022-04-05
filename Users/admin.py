@@ -1,6 +1,6 @@
 # Registering our models
 from django.contrib import admin
-from .models import Users, Payments, HelpCenter
+from .models import Users, Payments
 
 
 @admin.register(Users)

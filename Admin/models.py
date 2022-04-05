@@ -1,6 +1,6 @@
 # Creating our models of the Admins
 from django.db import models
-from Users.models import Users
+
 
 DAYS = [
     (1, 'MONDAY'),
