@@ -11,6 +11,12 @@ urlpatterns = [
          name="drivers_details"),
     path('/trucks/', api_views.Trucks_details.as_view(),
          name="trucks_details"),
+    path('/pricings/', api_views.Pricings_details.as_view(),
+         name="pricings_details"),
+    path('/requests/', api_views.Requests_details.as_view(),
+         name="requests_details"),
+    path('/complaints/', api_views.HelpCenter_details.as_view(),
+         name="helpcenter_details"),
 
 ]
 

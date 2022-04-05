@@ -59,3 +59,51 @@ class Trucks_details(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Pricings_details(APIView):
+    # if request is a get method
+    def get(self, request, format=None):
+        pricings = Pricings.objects.all()
+        serializer = PricingsSerializer(pricings, many=True)
+        return Response(serializer.data)
+
+    # if request is a post method
+    def post(self, request, format=None):
+        serializer = PricingsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Requests_details(APIView):
+    # if request is a get method
+    def get(self, request, format=None):
+        requests = Requests.objects.all()
+        serializer = RequestsSerializer(requests, many=True)
+        return Response(serializer.data)
+
+    # if request is a post method
+    def post(self, request, format=None):
+        serializer = RequestsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class HelpCenter_details(APIView):
+    # if request is a get method
+    def get(self, request, format=None):
+        helpcenter = HelpCenter.objects.all()
+        serializer = HelpCenterSerializer(helpcenter, many=True)
+        return Response(serializer.data)
+
+    # if request is a post method
+    def post(self, request, format=None):
+        serializer = HelpCenterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
