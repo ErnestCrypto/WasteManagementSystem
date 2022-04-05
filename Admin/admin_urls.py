@@ -5,7 +5,7 @@ from Admin import api_views
 app_name = 'AdminUrls'
 
 urlpatterns = [
-    path('admins/', api_views.Adminstrators_details.as_view(),
+    path('/admins/', api_views.Adminstrators_details.as_view(),
          name="administrators_details")
 ]
 

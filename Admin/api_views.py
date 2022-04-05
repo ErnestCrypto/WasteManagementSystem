@@ -11,10 +11,17 @@ from Basemodel.models import Pricings, Requests, HelpCenter
 # Making Get and Post requests
 
 
-@api_view(['GET', 'POST'])
 class Adminstrators_details(APIView):
     # If request is a Get method
-    def get(self, request):
+    def get(self, request, format=None):
         administrators = Administrators.objects.all()
         serializer = AdministratorsSerializer(administrators, many=True)
         return Response(serializer.data)
+
+    # If request is a POST method
+    def post(self, request, format=None):
+        serializer = AdministratorsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
