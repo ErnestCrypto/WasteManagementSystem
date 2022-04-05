@@ -6,7 +6,10 @@ app_name = 'AdminUrls'
 
 urlpatterns = [
     path('/admins/', api_views.Adminstrators_details.as_view(),
-         name="administrators_details")
+         name="administrators_details"),
+    path('/drivers/', api_views.Drivers_details.as_view(),
+         name="drivers_details")
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

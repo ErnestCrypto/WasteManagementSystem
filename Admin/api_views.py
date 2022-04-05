@@ -8,7 +8,10 @@ from .serializers import AdministratorsSerializer, DriversSerializer, TrucksSeri
 from .models import Administrators, Drivers, Trucks
 from Basemodel.models import Pricings, Requests, HelpCenter
 
-# Making Get and Post requests
+""" 
+Making Get and Post requests
+List all models instances or create a new instance
+"""
 
 
 class Adminstrators_details(APIView):
@@ -24,4 +27,20 @@ class Adminstrators_details(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Drivers_details(APIView):
+    # if request is a get method
+    def get(self, request, format=None):
+        drivers = Drivers.objects.all()
+        serializer = DriversSerializer(drivers)
+        return Response(serializer.data)
+
+    # if request is a post method
+    def post(self, request, format=None):
+        serializer = DriversSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
