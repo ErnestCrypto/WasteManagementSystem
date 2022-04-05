@@ -1,6 +1,7 @@
 # Creating serializers of Admin Application
 from rest_framework import serializers
-from .models import Administrators, Drivers, Trucks, Pricings, Requests, HelpCenter
+from .models import Administrators, Drivers, Trucks
+from Basemodel.models import Pricings, Requests, HelpCenter
 
 
 class AdministratorsSerializer(serializers.ModelSerializer):
