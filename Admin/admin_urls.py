@@ -8,7 +8,9 @@ urlpatterns = [
     path('/admins/', api_views.Adminstrators_details.as_view(),
          name="administrators_details"),
     path('/drivers/', api_views.Drivers_details.as_view(),
-         name="drivers_details")
+         name="drivers_details"),
+    path('/trucks/', api_views.Trucks_details.as_view(),
+         name="trucks_details"),
 
 ]
 

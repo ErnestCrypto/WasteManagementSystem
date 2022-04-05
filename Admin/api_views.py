@@ -34,12 +34,27 @@ class Drivers_details(APIView):
     # if request is a get method
     def get(self, request, format=None):
         drivers = Drivers.objects.all()
-        serializer = DriversSerializer(drivers)
+        serializer = DriversSerializer(drivers, many=True)
         return Response(serializer.data)
 
     # if request is a post method
     def post(self, request, format=None):
         serializer = DriversSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Trucks_details(APIView):
+    # if request is a get method
+    def get(self, request, format=None):
+        trucks = Trucks.objects.all()
+        serializers = TrucksSerializer(trucks, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializer = TrucksSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
