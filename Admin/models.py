@@ -3,7 +3,11 @@ from django.db import models
 
 
 class Administrators(models.Model):
-    pass
+    username = models.CharField(max_length=255)
+    profile = models.ImageField(upload_to='images/')
+    email = models.EmailField()
+    password = models.CharField(max_length=255)
+    contact = models.IntegerField()
 
     class Meta:
         verbose_name_plural = ('Administrators')
