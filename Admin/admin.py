@@ -1,6 +1,6 @@
 # Registering our models
 from django.contrib import admin
-from .models import Administrators, Drivers, Trucks, Pricings, Requests, HelpCenter
+from .models import Administrators, Drivers, Trucks
 
 
 @admin.register(Administrators)
@@ -21,25 +21,4 @@ class DriversAdmin(admin.ModelAdmin):
 class TrucksAdmin(admin.ModelAdmin):
     list_display = [
         'id', 'driver_id', 'number_plate',  'details',
-    ]
-
-
-@admin.register(Pricings)
-class PricingAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',  'price', 'type',
-    ]
-
-
-@admin.register(Requests)
-class RequestsAdmin(admin.ModelAdmin):
-    list_display = [
-        'id', 'user_id', 'date_time',  'status',
-    ]
-
-
-@admin.register(HelpCenter)
-class HelpCenterAdmin(admin.ModelAdmin):
-    list_display = [
-        'id', 'user_id', 'message', 'date_time',
     ]
