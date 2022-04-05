@@ -1,16 +1,6 @@
 # Creating our models of the Admins
 from django.db import models
-
-
-DAYS = [
-    (1, 'MONDAY'),
-    (2, 'TUESDAY'),
-    (3, 'WEDNESDAY'),
-    (4, 'THURSDAY'),
-    (5, 'FRIDAY'),
-    (6, 'SATURDAY'),
-    (7, 'SUNDAY'),
-]
+from Basemodel.models import DAYS
 
 
 class Administrators(models.Model):
@@ -30,9 +20,10 @@ class Administrators(models.Model):
 class Drivers(models.Model):
     firstname = models.CharField(max_length=255, default=None, null=True)
     lastname = models.CharField(max_length=255, default=None)
+    profile = models.ImageField(upload_to='images/', default=None)
     email = models.EmailField(default=None)
     contact = models.IntegerField(default=None)
-    day = models.CharField(max_length=255, choices=DAYS, default=None)
+    day = models.IntegerField(choices=DAYS, default=None)
     location = models.CharField(max_length=255, default=None)
     truck_id = models.CharField(max_length=255, default=None)
 

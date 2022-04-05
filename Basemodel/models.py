@@ -2,6 +2,16 @@
 from django.db import models
 
 
+DAYS = [
+    (1, 'MONDAY'),
+    (2, 'TUESDAY'),
+    (3, 'WEDNESDAY'),
+    (4, 'THURSDAY'),
+    (5, 'FRIDAY'),
+    (6, 'SATURDAY'),
+    (7, 'SUNDAY'),
+]
+
 TYPE = [
     (1, 'one time payment'),
     (2, 'subscription'),
@@ -17,7 +27,7 @@ STATUS = [
 class Pricings(models.Model):
     price = models.DecimalField(
         max_digits=6, decimal_places=2, default=None, null=True)
-    type = models.CharField(max_length=255, choices=TYPE, default=None)
+    type = models.IntegerField(choices=TYPE, default=None)
 
     class Meta:
         verbose_name_plural = ('Pricings')
@@ -26,7 +36,7 @@ class Pricings(models.Model):
 class Requests(models.Model):
     user_id = models.IntegerField(default=None, null=True)
     date_time = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=255, choices=STATUS, default=None)
+    status = models.IntegerField(choices=STATUS, default=None)
 
     class Meta:
         verbose_name_plural = ('Requests')

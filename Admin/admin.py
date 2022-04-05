@@ -13,7 +13,7 @@ class AdministratorAdmin(admin.ModelAdmin):
 @admin.register(Drivers)
 class DriversAdmin(admin.ModelAdmin):
     list_display = [
-        'id',  'firstname', 'lastname', 'email', 'contact', 'day', 'location', 'truck_id',
+        'id', 'profile', 'firstname', 'lastname', 'email', 'contact', 'day', 'location', 'truck_id',
     ]
 
 

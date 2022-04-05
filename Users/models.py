@@ -1,5 +1,6 @@
 # Creating our models from the Users
 from django.db import models
+from Basemodel.models import TYPE, DAYS
 
 
 class Users(models.Model):
@@ -9,7 +10,7 @@ class Users(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=255)
     pricing = models.CharField(max_length=255)
-    day = models.CharField(max_length=255)
+    day = models.IntegerField(choices=DAYS, default=None)
     balance = models.CharField(max_length=255)
     profile = models.ImageField(upload_to='images/')
     contact = models.IntegerField()
@@ -20,7 +21,7 @@ class Users(models.Model):
 
 class Payments(models.Model):
     user_id = models.IntegerField(null=True)
-    mode = models.CharField(max_length=255)
+    mode = models.IntegerField(choices=TYPE)
     duration = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     date_time = models.DateTimeField(auto_now_add=True)
