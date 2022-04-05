@@ -1,23 +1,20 @@
 # Registering our models
 from django.contrib import admin
-from .models import Users, Requests, Payments, HelpCenter
+from .models import Users, Payments, HelpCenter
 
 
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'id', 'firstname', 'lastname',
+        'address', 'email', 'password', 'pricing',
+        'day', 'balance', 'profile', 'contact',
 
-
-@admin.register(Requests)
-class RequestsAdmin(admin.ModelAdmin):
-    pass
+    ]
 
 
 @admin.register(Payments)
 class PaymentsAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(HelpCenter)
-class HelpCenterAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'id', 'user_id', 'mode', 'duration', 'amount', 'date_time',
+    ]
