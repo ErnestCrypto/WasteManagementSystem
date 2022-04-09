@@ -1,9 +1,5 @@
 # Creating our API views
-from django.http import Http404
-from rest_framework import status, generics
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import generics
 from .serializers import AdministratorsSerializer, DriversSerializer, TrucksSerializer, PricingsSerializer, RequestsSerializer, HelpCenterSerializer
 from .models import Administrators, Drivers, Trucks
 from Basemodel.models import Pricings, Requests, HelpCenter
@@ -29,49 +25,26 @@ class Trucks_details(generics.ListCreateAPIView):
     serializer_class = TrucksSerializer
 
 
-class Pricings_details(APIView):
-    # if request is a get method
-    def get(self, request, format=None):
-        pricings = Pricings.objects.all()
-        serializer = PricingsSerializer(pricings, many=True)
-        return Response(serializer.data)
-
-    # if request is a post method
-    def post(self, request, format=None):
-        serializer = PricingsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class Pricings_details(generics.ListCreateAPIView):
+    queryset = Pricings.objects.all()
+    serializer_class = PricingsSerializer
 
 
-class Requests_details(APIView):
-    # if request is a get method
-    def get(self, request, format=None):
-        requests = Requests.objects.all()
-        serializer = RequestsSerializer(requests, many=True)
-        return Response(serializer.data)
-
-    # if request is a post method
-    def post(self, request, format=None):
-        serializer = RequestsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class Requests_details(generics.ListCreateAPIView):
+    queryset = Requests.objects.all()
+    serializer_class = RequestsSerializer
 
 
-class HelpCenter_details(APIView):
-    # if request is a get method
-    def get(self, request, format=None):
-        helpcenter = HelpCenter.objects.all()
-        serializer = HelpCenterSerializer(helpcenter, many=True)
-        return Response(serializer.data)
+class HelpCenter_details(generics.ListCreateAPIView):
+    queryset = HelpCenter.objects.all()
+    serializer_class = HelpCenterSerializer
 
-    # if request is a post method
-    def post(self, request, format=None):
-        serializer = HelpCenterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    """
+    Making GET, PUT and DELETE
+    Retrive, update and destory model instances
+    """
+
+
+class Adminstrators_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Administrators.objects.all()
+    serializer_class = AdministratorsSerializer
