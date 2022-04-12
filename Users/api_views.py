@@ -51,12 +51,12 @@ class Payments_details(generics.RetrieveUpdateDestroyAPIView):
 
 class Pricings_details(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pricings.objects.all()
-    serializer_class = PaymentsSerializers
+    serializer_class = PricingsSerializer
 
 
 class Requests_details(generics.RetrieveUpdateDestroyAPIView):
     queryset = Requests.objects.all()
-    serializer_class = PaymentsSerializers
+    serializer_class = RequestsSerializer
 
 
 class HelpCenter_details(generics.RetrieveUpdateDestroyAPIView):
