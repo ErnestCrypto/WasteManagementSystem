@@ -23,8 +23,12 @@ urlpatterns = [
          name="pricings_details"),
     path('/requests/', api_views.Requests_list.as_view(),
          name="requests_list"),
+    path('/requests/<int:pk>', api_views.Requests_details.as_view(),
+         name="requests_details"),
     path('/complaints/', api_views.HelpCenter_list.as_view(),
          name="helpcenter_list"),
+    path('/complaints/<int:pk>', api_views.HelpCenter_details.as_view(),
+         name="helpcenter_details"),
 
 ]
 

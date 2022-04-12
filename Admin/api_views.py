@@ -67,9 +67,9 @@ class Pricings_details(generics.RetrieveUpdateDestroyAPIView):
 
 class Requests_details(generics.RetrieveUpdateDestroyAPIView):
     queryset = Requests.objects.all()
-    serailizer_class = RequestsSerializer
+    serializer_class = RequestsSerializer
 
 
 class HelpCenter_details(generics.RetrieveUpdateDestroyAPIView):
     queryset = HelpCenter.objects.all()
-    serailizer_class = HelpCenterSerializer
+    serializer_class = HelpCenterSerializer
