@@ -13,3 +13,23 @@ from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenter
 class Users_list(generics.ListCreateAPIView):
     queryset = Users.objects.all()
     serializer_class = UsersSerializers
+
+
+class Payments_list(generics.ListCreateAPIView):
+    queryset = Payments.objects.all()
+    serializer_class = PaymentsSerializers
+
+
+class Pricings_list(generics.ListCreateAPIView):
+    queryset = Pricings.objects.all()
+    serializer_class = PricingsSerializer
+
+
+class Request_list(generics.ListCreateAPIView):
+    queryset = Requests.objects.all()
+    serializer_class = RequestsSerializer
+
+
+class HelpCenter_list(generics.ListCreateAPIView):
+    queryset = HelpCenter.objects.all()
+    serializer_class = HelpCenterSerializer
