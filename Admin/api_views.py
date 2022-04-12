@@ -10,32 +10,32 @@ List all models instances or create a new instance
 """
 
 
-class Adminstrators_details(generics.ListCreateAPIView):
+class Adminstrators_list(generics.ListCreateAPIView):
     queryset = Administrators.objects.all()
     serializer_class = AdministratorsSerializer
 
 
-class Drivers_details(generics.ListCreateAPIView):
+class Drivers_list(generics.ListCreateAPIView):
     queryset = Drivers.objects.all()
     serializer_class = DriversSerializer
 
 
-class Trucks_details(generics.ListCreateAPIView):
+class Trucks_list(generics.ListCreateAPIView):
     queryset = Trucks.objects.all()
     serializer_class = TrucksSerializer
 
 
-class Pricings_details(generics.ListCreateAPIView):
+class Pricings_list(generics.ListCreateAPIView):
     queryset = Pricings.objects.all()
     serializer_class = PricingsSerializer
 
 
-class Requests_details(generics.ListCreateAPIView):
+class Requests_list(generics.ListCreateAPIView):
     queryset = Requests.objects.all()
     serializer_class = RequestsSerializer
 
 
-class HelpCenter_details(generics.ListCreateAPIView):
+class HelpCenter_list(generics.ListCreateAPIView):
     queryset = HelpCenter.objects.all()
     serializer_class = HelpCenterSerializer
 
@@ -48,3 +48,28 @@ class HelpCenter_details(generics.ListCreateAPIView):
 class Adminstrators_details(generics.RetrieveUpdateDestroyAPIView):
     queryset = Administrators.objects.all()
     serializer_class = AdministratorsSerializer
+
+
+class Drivers_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Drivers.objects.all()
+    serializer_class = DriversSerializer
+
+
+class Trucks_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Trucks.objects.all()
+    serializer_class = TrucksSerializer
+
+
+class Pricings_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Pricings.objects.all()
+    serializer_class = PricingsSerializer
+
+
+class Requests_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Requests.objects.all()
+    serailizer_class = RequestsSerializer
+
+
+class HelpCenter_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = HelpCenter.objects.all()
+    serailizer_class = HelpCenterSerializer
