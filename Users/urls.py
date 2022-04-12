@@ -1,13 +1,15 @@
 from django.urls import path
-from .api_views import Users_list, Payments_list, Pricings_list, Requests_list, HelpCenter_list
+from Users import api_views
 app_name = 'UsersUrls'
 
 urlpatterns = [
-    path('users/', Users_list.as_view(), name="users_list"),
-    path('payments/', Payments_list.as_view(), name="payments_list"),
-    path('pricings/', Pricings_list.as_view(), name="pricings_list"),
-    path('requests/', Requests_list.as_view(), name="requests_list"),
-    path('complaints/', HelpCenter_list.as_view(), name="helpcenters_list"),
+    path('users/', api_views.Users_list.as_view(), name="users_list"),
+    path('users/<int:pk>/', api_views.Users_details.as_view(), name="users_details"),
+    path('payments/', api_views.Payments_list.as_view(), name="payments_list"),
+    path('pricings/', api_views.Pricings_list.as_view(), name="pricings_list"),
+    path('requests/', api_views.Requests_list.as_view(), name="requests_list"),
+    path('complaints/', api_views.HelpCenter_list.as_view(),
+         name="helpcenters_list"),
 
 
 ]

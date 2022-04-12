@@ -1,5 +1,4 @@
 from django.urls import path
-from Admin.views import Myview
 from rest_framework.urlpatterns import format_suffix_patterns
 from Admin import api_views
 app_name = 'AdminUrls'

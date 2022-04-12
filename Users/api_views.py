@@ -33,3 +33,32 @@ class Requests_list(generics.ListCreateAPIView):
 class HelpCenter_list(generics.ListCreateAPIView):
     queryset = HelpCenter.objects.all()
     serializer_class = HelpCenterSerializer
+
+    """
+    Retrieve, Update and destroy model instsnces.
+    """
+
+
+class Users_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Users.objects.all()
+    serializer_class = UsersSerializers
+
+
+class Payments_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Payments.objects.all()
+    serializer_class = PaymentsSerializers
+
+
+class Pricings_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Pricings.objects.all()
+    serializer_class = PaymentsSerializers
+
+
+class Requests_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Requests.objects.all()
+    serializer_class = PaymentsSerializers
+
+
+class HelpCenter_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = HelpCenter.objects.all()
+    serializer_class = HelpCenterSerializer
