@@ -5,9 +5,9 @@ app_name = 'UsersUrls'
 urlpatterns = [
     path('users/', Users_list.as_view(), name="users_list"),
     path('payments/', Payments_list.as_view(), name="payments_list"),
-    path('requests/', Pricings_list.as_view(), name="pricings_list"),
+    path('pricings/', Pricings_list.as_view(), name="pricings_list"),
     path('requests/', Requests_list.as_view(), name="requests_list"),
-    path('complains/', HelpCenter_list.as_view(), name="helpcenters_list"),
+    path('complaints/', HelpCenter_list.as_view(), name="helpcenters_list"),
 
 
 ]

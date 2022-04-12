@@ -25,7 +25,7 @@ class Pricings_list(generics.ListCreateAPIView):
     serializer_class = PricingsSerializer
 
 
-class Request_list(generics.ListCreateAPIView):
+class Requests_list(generics.ListCreateAPIView):
     queryset = Requests.objects.all()
     serializer_class = RequestsSerializer
 
