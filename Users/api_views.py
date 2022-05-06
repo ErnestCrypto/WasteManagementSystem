@@ -13,9 +13,18 @@ from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenter
 """
 
 
-class Login_list(generics.ListCreateAPIView):
-    queryset = Login.objects.all()
-    serializer_class = LoginSerializers
+class Login_list(APIView):
+    def get(self, request, format=None):
+        login = Login.objects.all()
+        serializer = LoginSerializers(login, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = LoginSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Payments_list(generics.ListCreateAPIView):
