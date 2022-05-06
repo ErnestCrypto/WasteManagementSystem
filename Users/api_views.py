@@ -1,8 +1,5 @@
 # Creating our API views
 from rest_framework import generics
-from rest_framework.views import APIView
-from rest_framework import status
-from rest_framework.response import Response
 from .models import Login, Payments
 from .serializers import LoginSerializers, PaymentsSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
@@ -13,18 +10,9 @@ from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenter
 """
 
 
-class Login_list(APIView):
-    def get(self, request, format=None):
-        login = Login.objects.all()
-        serializer = LoginSerializers(login, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = LoginSerializers(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class Login_list(generics.ListCreateAPIView):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializers
 
 
 class Payments_list(generics.ListCreateAPIView):
@@ -52,29 +40,8 @@ class HelpCenter_list(generics.ListCreateAPIView):
 
 
 class Login_details(generics.RetrieveUpdateDestroyAPIView):
-    def get_object(self, pk):
-        try:
-            return Login.objects.get(pk=pk)
-        except Login.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-    def get(self, request, pk, format=None):
-        Login = self.get_object(pk)
-        serializer = LoginSerializers(Login)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        Login = self.get_object(pk)
-        serializer = LoginSerializers(Login, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        Login = self.get_object(pk)
-        Login.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializers
 
 
 class Payments_details(generics.RetrieveUpdateDestroyAPIView):
