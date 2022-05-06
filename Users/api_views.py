@@ -52,8 +52,29 @@ class HelpCenter_list(generics.ListCreateAPIView):
 
 
 class Login_details(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Login.objects.all()
-    serializer_class = LoginSerializers
+    def get_object(self, pk):
+        try:
+            return Login.objects.get(pk=pk)
+        except Login.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk, format=None):
+        Login = self.get_object(pk)
+        serializer = LoginSerializers(Login)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        Login = self.get_object(pk)
+        serializer = LoginSerializers(Login, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        Login = self.get_object(pk)
+        Login.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class Payments_details(generics.RetrieveUpdateDestroyAPIView):
