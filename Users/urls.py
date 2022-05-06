@@ -4,7 +4,8 @@ app_name = 'UsersUrls'
 
 urlpatterns = [
     path('login/', api_views.Login_list.as_view(), name="login_list"),
-    path('login/<str:pk>/', api_views.Login_details.as_view(), name="login_details"),
+    path('login/<str:pk>/',
+         api_views.Login_details.as_view(), name="login_details"),
     path('payments/', api_views.Payments_list.as_view(), name="payments_list"),
     path('payments/<int:pk>/', api_views.Payments_details.as_view(),
          name="payments_details"),
