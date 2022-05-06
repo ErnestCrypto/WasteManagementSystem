@@ -13,12 +13,7 @@ from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenter
 """
 
 
-class Login_list(generics.ListAPIView):
-    queryset = Login.objects.all()
-    serializer_class = LoginSerializers
-
-
-class Login_create(generics.CreateAPIView):
+class Login_list(generics.ListCreateAPIView):
     queryset = Login.objects.all()
     serializer_class = LoginSerializers
 
