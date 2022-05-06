@@ -13,18 +13,14 @@ from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenter
 """
 
 
-class Login_list(APIView):
-    def get(self, request, format=None):
-        login = Login.objects.all()
-        serializer = LoginSerializers(Login, many=True)
-        return Response(serializer.data)
+class Login_list(generics.ListAPIView):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializers
 
-    def post(self, request, format=None):
-        serializer = LoginSerializers(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Login_create(generics.CreateAPIView):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializers
 
 
 class Payments_list(generics.ListCreateAPIView):
