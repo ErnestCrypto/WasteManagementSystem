@@ -1,10 +1,10 @@
 # Registering our models
 from django.contrib import admin
-from .models import Users, Payments
+from .models import Login, Payments
 
 
-@admin.register(Users)
-class UsersAdmin(admin.ModelAdmin):
+@admin.register(Login)
+class LoginAdmin(admin.ModelAdmin):
     list_display = [
         'id', 'firstname', 'lastname',
         'address', 'email', 'password', 'pricing',

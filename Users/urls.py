@@ -3,8 +3,8 @@ from Users import api_views
 app_name = 'UsersUrls'
 
 urlpatterns = [
-    path('users/', api_views.Users_list.as_view(), name="users_list"),
-    path('users/<int:pk>/', api_views.Users_details.as_view(), name="users_details"),
+    path('login/', api_views.Login_list.as_view(), name="login_list"),
+    path('login/<int:pk>/', api_views.Login_details.as_view(), name="login_details"),
     path('payments/', api_views.Payments_list.as_view(), name="payments_list"),
     path('payments/<int:pk>/', api_views.Payments_details.as_view(),
          name="payments_details"),

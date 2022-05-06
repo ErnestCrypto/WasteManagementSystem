@@ -1,7 +1,7 @@
 # Creating our API views
 from rest_framework import generics
-from .models import Users, Payments
-from .serializers import UsersSerializers, PaymentsSerializers
+from .models import Login, Payments
+from .serializers import LoginSerializers, PaymentsSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
 from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenterSerializer
 
@@ -10,9 +10,9 @@ from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenter
 """
 
 
-class Users_list(generics.ListCreateAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
+class Login_list(generics.ListCreateAPIView):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializers
 
 
 class Payments_list(generics.ListCreateAPIView):
@@ -39,9 +39,9 @@ class HelpCenter_list(generics.ListCreateAPIView):
     """
 
 
-class Users_details(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
+class Login_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializers
 
 
 class Payments_details(generics.RetrieveUpdateDestroyAPIView):
