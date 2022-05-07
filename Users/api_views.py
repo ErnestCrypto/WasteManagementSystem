@@ -76,7 +76,7 @@ class Auth_details(APIView):
     def get_object(self, request):
         try:
             return Users.objects.get(
-                email=request.data['email'], password=request.data['password'])
+                id=request.data['id'])
         except Users.DoesNotExist:
             raise Http404
 
