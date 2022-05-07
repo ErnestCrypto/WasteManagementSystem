@@ -3,7 +3,7 @@ from django.db import models
 from Basemodel.models import TYPE, DAYS
 
 
-class Login(models.Model):
+class User(models.Model):
     firstname = models.CharField(max_length=255, null=True)
     lastname = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
@@ -16,7 +16,7 @@ class Login(models.Model):
     contact = models.IntegerField()
 
     class Meta:
-        verbose_name_plural = ('Login')
+        verbose_name_plural = ('Users')
 
 
 class Payments(models.Model):
