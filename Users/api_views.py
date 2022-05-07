@@ -15,9 +15,37 @@ from rest_framework import status
 """
 
 
+class Auth(APIView):
+    def get_object(self, request):
+        try:
+            return Login.objects.get(
+                email=request.data['email'], password=request.data['password'])
+        except Login.DoesNotExist:
+            raise Http404
+
+    def post(self, request, format=None):
+        user_valid = self.get_object(request)
+        if user_valid is None:
+            pass
+        else:
+            serializer = LoginSerializers(user_valid)
+            id = serializer.data['id']
+            return Response(id)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class Login_list(generics.ListCreateAPIView):
+
     queryset = Login.objects.all()
     serializer_class = LoginSerializers
+
+
+"""
+{
+     "email": "akotobamfo.eab@gmail.com",
+     "password": "laptop"
+}
+"""
 
 
 class Payments_list(generics.ListCreateAPIView):

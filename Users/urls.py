@@ -3,6 +3,8 @@ from Users import api_views
 app_name = 'UsersUrls'
 
 urlpatterns = [
+    path('auth/', api_views.Auth.as_view(), name="login"),
+
     path('login/', api_views.Login_list.as_view(), name="login_list"),
     path('login/<str:pk>/',
          api_views.Login_details.as_view(), name="login_details"),
