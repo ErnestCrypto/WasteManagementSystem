@@ -45,6 +45,11 @@ class User_list(generics.ListCreateAPIView):
      "email": "akotobamfo.eab@gmail.com",
      "password": "laptop"
 }
+
+{
+     "id": "1"
+    
+}
 """
 
 
