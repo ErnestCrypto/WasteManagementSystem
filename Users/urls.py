@@ -3,11 +3,11 @@ from Users import api_views
 app_name = 'UsersUrls'
 
 urlpatterns = [
-    path('auth/', api_views.Auth.as_view(), name="login"),
-
-    path('login/', api_views.Login_list.as_view(), name="login_list"),
-    path('login/<str:pk>/',
-         api_views.Login_details.as_view(), name="login_details"),
+    path('auth/', api_views.Auth.as_view(), name="auth"),
+    path('auth_details/', api_views.Auth_details.as_view(), name="auth_details"),
+    path('users/', api_views.User_list.as_view(), name="login_list"),
+    path('users/<str:pk>/',
+         api_views.User_details.as_view(), name="login_details"),
     path('payments/', api_views.Payments_list.as_view(), name="payments_list"),
     path('payments/<int:pk>/', api_views.Payments_details.as_view(),
          name="payments_details"),

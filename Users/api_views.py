@@ -1,7 +1,7 @@
 # Creating our API views
 from rest_framework import generics
-from .models import Login, Payments
-from .serializers import LoginSerializers, PaymentsSerializers
+from .models import Users, Payments
+from .serializers import UsersSerializers, PaymentsSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
 from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenterSerializer
 from django.http import Http404
@@ -18,9 +18,9 @@ from rest_framework import status
 class Auth(APIView):
     def get_object(self, request):
         try:
-            return Login.objects.get(
+            return Users.objects.get(
                 email=request.data['email'], password=request.data['password'])
-        except Login.DoesNotExist:
+        except Users.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
@@ -28,16 +28,16 @@ class Auth(APIView):
         if user_valid is None:
             pass
         else:
-            serializer = LoginSerializers(user_valid)
+            serializer = UsersSerializers(user_valid)
             id = serializer.data['id']
             return Response(id)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class Login_list(generics.ListCreateAPIView):
+class User_list(generics.ListCreateAPIView):
 
-    queryset = Login.objects.all()
-    serializer_class = LoginSerializers
+    queryset = Users.objects.all()
+    serializer_class = UsersSerializers
 
 
 """
@@ -68,34 +68,31 @@ class HelpCenter_list(generics.ListCreateAPIView):
     serializer_class = HelpCenterSerializer
 
     """
-    Retrieve, Update and destroy model instsnces.
+    Retrieve, Update and destroy model instances.
     """
 
 
-class Login_details(APIView):
-    def get_object(self, pk):
+class Auth_details(APIView):
+    def get_object(self, request):
         try:
-            return Login.objects.get(firstname=pk)
-        except Login.DoesNotExist:
+            return Users.objects.get(
+                email=request.data['email'], password=request.data['password'])
+        except Users.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        Login = self.get_object(pk)
-        serializer = LoginSerializers(Login)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        Login = self.get_object(pk)
-        serializer = LoginSerializers(Login, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+    def post(self, request, format=None):
+        user_valid = self.get_object(request)
+        if user_valid is None:
+            pass
+        else:
+            serializer = UsersSerializers(user_valid)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        Login = self.get_object(pk)
-        Login.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class User_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Users.objects.all()
+    serializer_class = UsersSerializers
 
 
 class Payments_details(generics.RetrieveUpdateDestroyAPIView):
