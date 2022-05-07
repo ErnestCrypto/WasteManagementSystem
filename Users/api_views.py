@@ -1,7 +1,7 @@
 # Creating our API views
 from rest_framework import generics
-from .models import Users, Payments
-from .serializers import UsersSerializers, PaymentsSerializers
+from .models import Logins, Payments
+from .serializers import LoginsSerializers, PaymentsSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
 from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenterSerializer
 from django.http import Http404
@@ -18,26 +18,26 @@ from rest_framework import status
 class Auth(APIView):
     def get_object(self, request):
         try:
-            return Users.objects.get(
+            return Logins.objects.get(
                 email=request.data['email'], password=request.data['password'])
-        except Users.DoesNotExist:
+        except Logins.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
-        user_valid = self.get_object(request)
-        if user_valid is None:
+        Login_valid = self.get_object(request)
+        if Login_valid is None:
             pass
         else:
-            serializer = UsersSerializers(user_valid)
+            serializer = LoginsSerializers(Login_valid)
             id = serializer.data['id']
             return Response(id)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class User_list(generics.ListCreateAPIView):
+class Login_list(generics.ListCreateAPIView):
 
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
+    queryset = Logins.objects.all()
+    serializer_class = LoginsSerializers
 
 
 """
@@ -80,24 +80,24 @@ class HelpCenter_list(generics.ListCreateAPIView):
 class Auth_details(APIView):
     def get_object(self, request):
         try:
-            return Users.objects.get(
+            return Logins.objects.get(
                 id=request.data['id'])
-        except Users.DoesNotExist:
+        except Logins.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
-        user_valid = self.get_object(request)
-        if user_valid is None:
+        Login_valid = self.get_object(request)
+        if Login_valid is None:
             pass
         else:
-            serializer = UsersSerializers(user_valid)
+            serializer = LoginsSerializers(Login_valid)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class User_details(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializers
+class Login_details(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Logins.objects.all()
+    serializer_class = LoginsSerializers
 
 
 class Payments_details(generics.RetrieveUpdateDestroyAPIView):

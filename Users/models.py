@@ -1,9 +1,9 @@
-# Creating our models from the Users
+# Creating our models from the Login
 from django.db import models
 from Basemodel.models import TYPE, DAYS
 
 
-class Users(models.Model):
+class Login(models.Model):
     firstname = models.CharField(max_length=255, null=True)
     lastname = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
@@ -16,7 +16,7 @@ class Users(models.Model):
     contact = models.IntegerField()
 
     class Meta:
-        verbose_name_plural = ('Users')
+        verbose_name_plural = ('Login')
 
 
 class Payments(models.Model):
