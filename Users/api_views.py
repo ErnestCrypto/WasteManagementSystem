@@ -20,9 +20,20 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework_jwt.settings import api_settings
+
 
 """
     List all the models instance or create a new model instance
+"""
+"""
+if request.method == 'POST':
+    jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+    jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+    payload = jwt_payload_handler(request.user)
+    token = jwt_encode_handler(payload)
+    return HttpResponse('Get token auth request and data is as: {}'.format(token))
 """
 
 
@@ -36,7 +47,10 @@ class Test(APIView):
             raise Http404
 
     def post(self, request, format=None):
-
+        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+        payload = jwt_payload_handler(request.user)
+        token = jwt_encode_handler(payload)
         Login_valids = self.get_object(request)
         if Login_valids is None:
             pass
@@ -45,23 +59,9 @@ class Test(APIView):
 
             return Response({
                             'id': serializer.data['id'],
+                            'token': token
                             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # def get(self, request, format=None):
-    #     users = Users.objects.all()
-    #     serializer = UserSerializers(users, many=True)
-    #     return Response(serializer.data)
-
-    # def post(self, request, format=None):
-    #     serializer = UserSerializers(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
 
 class Auth(APIView):

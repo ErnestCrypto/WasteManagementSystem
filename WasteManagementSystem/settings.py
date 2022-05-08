@@ -20,6 +20,10 @@ import django_heroku
 import dj_database_url
 from decouple import config
 import datetime
+import json
+from six.moves.urllib import request
+from cryptography.x509 import load_pem_x509_certificate
+from cryptography.hazmat.backends import default_backend
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,16 +154,8 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 django_heroku.settings(locals())
 
 REST_FRAMEWORK = {
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
-# JWT_AUTH = {
-
-#     'JWT_VERIFY': True,
-#     'JWT_VERIFY_EXPIRATION': True,
-#     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
-#     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-#     'JWT_PAYLOAD_HANDLER': 'path.to.your.jwt_custom_payload_handler',
-
-# }
