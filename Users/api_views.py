@@ -21,6 +21,7 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework_jwt.settings import api_settings
+from rest_framework.permissions import AllowAny
 
 
 """
@@ -38,6 +39,7 @@ if request.method == 'POST':
 
 
 class Test(APIView):
+    permission_classes = (AllowAny,)
 
     def get_object(self, request):
         try:
