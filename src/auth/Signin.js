@@ -30,11 +30,15 @@ const Signin = ({ navigation }) => {
         </StyledInputContainer>
       </StyledUpperHeader>
       <StyledLowerHeader>
-        <Buttons type="primary" text="sign in" />
         <Buttons
-          press={() => navigation.navigate("Signup")}
+          type="primary"
+          text="sign in"
+          press={() => navigation.navigate("Dashboard")}
+        />
+        <Buttons
           type="secondary"
           text="don't have an account?"
+          press={() => navigation.navigate("Signup")}
         />
         <Text style={textLower}>
           We can all assist to recycle and reduce global warming if we work

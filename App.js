@@ -12,6 +12,7 @@ import allReducers from "./src/redux/redux";
 
 //imports for screens and components
 import Home from "./src/screens/Home";
+import Dashboard from "./src/screens/Dashboard";
 import EditProfile from "./src/screens/EditProfile";
 import Notification from "./src/screens/Notification";
 import Payment from "./src/screens/Payment";
@@ -41,6 +42,7 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Signin" component={Signin} />
           <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Dashboard" component={Dashboard} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
