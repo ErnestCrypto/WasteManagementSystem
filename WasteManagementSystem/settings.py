@@ -21,7 +21,6 @@ import dj_database_url
 from decouple import config
 from datetime import timedelta
 import json
-from six.moves.urllib import request
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
 
