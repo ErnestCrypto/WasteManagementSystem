@@ -24,11 +24,11 @@ class Auth(APIView):
             raise Http404
 
     def post(self, request, format=None):
-        Login_valid = self.get_object(request)
-        if Login_valid is None:
+        Login_valids = self.get_object(request)
+        if Login_valids is None:
             pass
         else:
-            serializer = UserSerializers(Login_valid)
+            serializer = UserSerializers(Login_valids)
             id = serializer.data['id']
             return Response(id)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
