@@ -22,6 +22,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework_jwt.settings import api_settings
 from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 """
@@ -41,6 +42,14 @@ if request.method == 'POST':
 class Test(APIView):
     permission_classes = (AllowAny,)
 
+    def get_tokens_for_user(user):
+        refresh = RefreshToken.for_user(user)
+
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
+
     def get_object(self, request):
         try:
             return Users.objects.get(
@@ -49,21 +58,32 @@ class Test(APIView):
             raise Http404
 
     def post(self, request, format=None):
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-        payload = jwt_payload_handler(request.user)
-        token = jwt_encode_handler(payload)
         Login_valids = self.get_object(request)
         if Login_valids is None:
             pass
         else:
             serializer = UserSerializers(Login_valids)
+            user = serializer.data['id']
+            token = self.get_tokens_for_user(user)
 
             return Response({
                             'id': serializer.data['id'],
-                            'token': token
+                            'token': token,
                             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+"""
+    {
+        "email": "akotobamfo.eab@gmail.com",
+        "password": "laptop"
+    }
+
+{
+     "id": "1"
+    
+}
+"""
 
 
 class Auth(APIView):
@@ -97,19 +117,6 @@ class User_list(generics.ListCreateAPIView):
 
     queryset = Users.objects.all()
     serializer_class = UserSerializers
-
-
-"""
-{
-     "email": "akotobamfo.eab@gmail.com",
-     "password": "laptop"
-}
-
-{
-     "id": "1"
-    
-}
-"""
 
 
 class Payments_list(generics.ListCreateAPIView):
