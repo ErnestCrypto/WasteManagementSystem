@@ -64,11 +64,10 @@ class Test(APIView):
         else:
             serializer = UserSerializers(Login_valids)
             user = serializer.data['id']
-            token = self.get_tokens_for_user(user)
 
             return Response({
                             'id': serializer.data['id'],
-                            'token': token,
+
                             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
