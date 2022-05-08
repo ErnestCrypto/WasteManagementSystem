@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'Users.apps.UsersConfig',
     'Basemodel.apps.BasemodelConfig',
     'rest_framework',
+    'rest_framework.authtoken',
 
 ]
 
@@ -145,3 +146,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 django_heroku.settings(locals())
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
