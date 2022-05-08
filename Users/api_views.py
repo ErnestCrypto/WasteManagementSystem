@@ -1,7 +1,7 @@
 # Creating our API views
 from rest_framework import generics
 from .models import Users, Payments
-from .serializers import UserSerializers, PaymentsSerializers, UserSerializer
+from .serializers import UserSerializers, PaymentsSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
 from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenterSerializer
 from django.http import Http404
@@ -19,40 +19,34 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+
 """
     List all the models instance or create a new model instance
 """
-# token = Token.objects.create(user=...)
 
 
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class Test(APIView):
 
+    def get_object(self, request):
+        try:
+            return Users.objects.get(
+                email=request.data['email'], password=request.data['password'])
+        except Users.DoesNotExist:
+            raise Http404
 
-class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    def post(self, request, format=None):
 
+        Login_valids = self.get_object(request)
+        if Login_valids is None:
+            pass
+        else:
+            serializer = UserSerializers(Login_valids)
 
-class ExampleView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, format=None):
-        content = {
-            'user': str(request.user),  # `django.contrib.auth.User` instance.
-            'auth': str(request.auth),  # None
-        }
-        return Response(content)
-
-
-class Test(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly]
-
-    queryset = Users.objects.all()
-    serializer_class = UserSerializers
+            return Response({
+                            'id': serializer.data['id'],
+                            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # def get(self, request, format=None):
     #     users = Users.objects.all()
@@ -86,8 +80,10 @@ class Auth(APIView):
             pass
         else:
             serializer = UserSerializers(Login_valids)
-            id = serializer.data['id']
-            return Response(id)
+
+            return Response({
+                            'id': serializer.data['id'],
+                            })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

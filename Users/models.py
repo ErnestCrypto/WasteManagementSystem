@@ -20,8 +20,6 @@ class Users(models.Model):
     balance = models.CharField(max_length=255)
     profile = models.ImageField(upload_to='images/')
     contact = models.IntegerField()
-    owner = models.ForeignKey(
-        'auth.User', related_name='snippets', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = ('Users')
@@ -36,9 +34,3 @@ class Payments(models.Model):
 
     class Meta:
         verbose_name_plural = ('Payments')
-
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)
