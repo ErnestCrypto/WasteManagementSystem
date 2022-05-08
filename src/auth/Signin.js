@@ -1,29 +1,33 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
-import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   defaultViewWithoutPadding,
+  StyledInputContainer,
   StyledLowerHeader,
+  StyledMainText,
+  StyledSubText,
   StyledUpperHeader,
+  StyledUpperText,
   textLower,
 } from "../helpers/Variables";
 import Buttons from "../components/Buttons";
+import Input from "../components/Input";
 
 const Signin = ({ navigation }) => {
   return (
     <SafeAreaView style={defaultViewWithoutPadding}>
       <StyledUpperHeader>
-        <View>
-          <Text>Keep your home clean!</Text>
-          <Text>Continue to your account to keep your home clean</Text>
-        </View>
-        <View>
-          <TextInput placeholder="Email address" />
-        </View>
-        <View>
-          <TextInput placeholder="Password" />
-        </View>
+        <StyledUpperText>
+          <StyledMainText>Let's keep your home clean!</StyledMainText>
+          <StyledSubText>
+            Continue to your account to keep your home clean
+          </StyledSubText>
+        </StyledUpperText>
+        <StyledInputContainer>
+          <Input placeholder="Email address" />
+          <Input placeholder="Password" />
+        </StyledInputContainer>
       </StyledUpperHeader>
       <StyledLowerHeader>
         <Buttons type="primary" text="sign in" />

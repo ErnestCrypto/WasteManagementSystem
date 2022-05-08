@@ -1,19 +1,36 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import styled from "styled-components/native";
 import {
   defaultViewWithoutPadding,
+  StyledInputContainer,
   StyledLowerHeader,
+  StyledMainText,
+  StyledSubText,
   StyledUpperHeader,
+  StyledUpperText,
   textLower,
 } from "../helpers/Variables";
 import Buttons from "../components/Buttons";
+import Input from "../components/Input";
 
 const Signup = ({ navigation }) => {
   return (
     <SafeAreaView style={defaultViewWithoutPadding}>
-      <StyledUpperHeader></StyledUpperHeader>
+      <StyledUpperHeader>
+        <StyledUpperText style={{ flex: "0 0 20" }}>
+          <StyledMainText>Let's get you started!</StyledMainText>
+          <StyledSubText>
+            To become a member, first create an account
+          </StyledSubText>
+        </StyledUpperText>
+        <StyledInputContainer>
+          <Input placeholder="Username" />
+          <Input placeholder="Email address" />
+          <Input placeholder="Password" />
+          <Input placeholder="Confirm Password" />
+        </StyledInputContainer>
+      </StyledUpperHeader>
       <StyledLowerHeader>
         <Buttons type="primary" text="create account" />
         <Buttons

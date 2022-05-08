@@ -24,7 +24,7 @@ const Home = ({ navigation }) => {
           source={require("../assets/images/wastify-logo.png")}
         />
         <Buttons
-          press={() => navigation.navigate("Signup")}
+          press={() => navigation.navigate("Signin")}
           text="get started"
           type="primary"
         />
