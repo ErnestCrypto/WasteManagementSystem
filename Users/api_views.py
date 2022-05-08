@@ -74,7 +74,10 @@ class Auth(APIView):
             raise Http404
 
     def post(self, request, format=None):
-
+        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+        payload = jwt_payload_handler(request.user)
+        token = jwt_encode_handler(payload)
         Login_valids = self.get_object(request)
         if Login_valids is None:
             pass
@@ -83,6 +86,7 @@ class Auth(APIView):
 
             return Response({
                             'id': serializer.data['id'],
+                            'token': token
                             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
