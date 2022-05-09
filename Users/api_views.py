@@ -139,7 +139,7 @@ class Auth(APIView):
             serializer = UserSerializers(Login_valids)
             payload = {
                 'id': Login_valids.id,
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=120),
                 'iat': datetime.datetime.utcnow()
             }
             token = jwt.encode(payload, 'secret',
