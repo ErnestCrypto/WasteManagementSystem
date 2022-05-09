@@ -123,26 +123,35 @@ class Auth(APIView):
 
     def get_object(self, request):
         try:
-            return User.objects.get(
+            user = User.objects.get(
                 email=request.data['email'], password=request.data['password'])
+            return user
         except User.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-        payload = jwt_payload_handler(request.user)
-        token = jwt_encode_handler(payload)
+
         Login_valids = self.get_object(request)
+
         if Login_valids is None:
             pass
         else:
             serializer = UserSerializers(Login_valids)
+            payload = {
+                'id': Login_valids.id,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+                'iat': datetime.datetime.utcnow()
+            }
+            token = jwt.encode(payload, 'secret',
+                               algorithm='HS256').decode('utf-8')
+            response = Response()
+            response.set_cookie(key='jwt', value=token, httponly=True)
+            response.data = {
+                'id': serializer.data['id'],
+                'jwt': token
+            }
 
-            return Response({
-                            'id': serializer.data['id'],
-                            'token': token
-                            })
+            return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
