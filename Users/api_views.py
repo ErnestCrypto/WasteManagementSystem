@@ -1,6 +1,6 @@
 # Creating our API views
 from rest_framework import generics
-from .models import Users, Payments
+from .models import User, Payments
 from .serializers import UserSerializers, PaymentsSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
 from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenterSerializer
@@ -10,9 +10,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import User
 from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
 from django.conf import settings
@@ -24,7 +24,8 @@ from rest_framework_jwt.settings import api_settings
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
-
+import jwt
+import datetime
 
 """
     List all the models instance or create a new model instance
@@ -43,39 +44,65 @@ if request.method == 'POST':
 class Test(APIView):
     permission_classes = (AllowAny,)
 
-    def get_tokens_for_user(user):
-
-        refresh = RefreshToken.for_user(user)
-        access_token = refresh.access_token
-        access_token.set_exp(lifetime=timedelta(hours=2))
-
-        return {
-            'refresh': str(refresh),
-            'access': str(access_token),
-        }
-
     def get_object(self, request):
         try:
-            return Users.objects.get(
+            return User.objects.get(
                 email=request.data['email'], password=request.data['password'])
-        except Users.DoesNotExist:
+        except User.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
-        Login_valids = self.get_object(request)
-        if Login_valids is None:
-            pass
-        else:
-            serializer = UserSerializers(Login_valids)
-            user = serializer.data['id']
-            token = self.get_tokens_for_user()
+        email = request.data['email']
+        password = request.data['password']
+        user = User.objects.filter(email=email).first()
 
-            return Response({
-                            'id': serializer.data['id'],
-                            'token': token
+        if user is None:
+            raise AuthenticationFailed('User not found!')
 
-                            })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret',
+                           algorithm='HS256').decode('utf-8')
+
+        response = Response()
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+        return response
+
+
+class Testget(APIView):
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthorized user')
+
+        user = User.objects.filter(id=payload['id']).first()
+        serializer = UserSerializers(user)
+
+        return Response(serializer.data)
+
+
+class Testpost(APIView):
+    def post(self, request, format=None):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'logout successful'
+        }
+        return response
 
 
 """
@@ -92,12 +119,13 @@ class Test(APIView):
 
 
 class Auth(APIView):
+    permission_classes = (AllowAny,)
 
     def get_object(self, request):
         try:
-            return Users.objects.get(
+            return User.objects.get(
                 email=request.data['email'], password=request.data['password'])
-        except Users.DoesNotExist:
+        except User.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
@@ -120,7 +148,7 @@ class Auth(APIView):
 
 class User_list(generics.ListCreateAPIView):
 
-    queryset = Users.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializers
 
 
@@ -151,9 +179,9 @@ class HelpCenter_list(generics.ListCreateAPIView):
 class Auth_details(APIView):
     def get_object(self, request):
         try:
-            return Users.objects.get(
+            return User.objects.get(
                 id=request.data['id'])
-        except Users.DoesNotExist:
+        except User.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
@@ -167,7 +195,7 @@ class Auth_details(APIView):
 
 
 class User_details(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Users.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializers
 
 

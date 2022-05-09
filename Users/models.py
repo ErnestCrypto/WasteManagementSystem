@@ -7,9 +7,11 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 
 
-class Users(models.Model):
+class User(models.Model):
     firstname = models.CharField(max_length=255, null=True)
     lastname = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
@@ -22,6 +24,7 @@ class Users(models.Model):
     contact = models.IntegerField()
 
     class Meta:
+
         verbose_name_plural = ('Users')
 
 

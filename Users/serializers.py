@@ -1,13 +1,12 @@
 # Creating our serializers
 from rest_framework import serializers
-from Users.models import Users, Payments
+from Users.models import User, Payments
 
 
 class UserSerializers(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
-        model = Users
+        model = User
         fields = "__all__"
 
 
