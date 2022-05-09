@@ -23,6 +23,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework_jwt.settings import api_settings
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from datetime import timedelta
 
 
 """
@@ -43,11 +44,14 @@ class Test(APIView):
     permission_classes = (AllowAny,)
 
     def get_tokens_for_user(user):
+
         refresh = RefreshToken.for_user(user)
+        access_token = refresh.access_token
+        access_token.set_exp(lifetime=timedelta(hours=2))
 
         return {
             'refresh': str(refresh),
-            'access': str(refresh.access_token),
+            'access': str(access_token),
         }
 
     def get_object(self, request):
@@ -64,9 +68,11 @@ class Test(APIView):
         else:
             serializer = UserSerializers(Login_valids)
             user = serializer.data['id']
+            token = self.get_tokens_for_user()
 
             return Response({
                             'id': serializer.data['id'],
+                            'token': token
 
                             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
