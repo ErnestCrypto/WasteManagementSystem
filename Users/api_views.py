@@ -76,7 +76,7 @@ class Test(APIView):
         return response
 
 
-class Testget(APIView):
+class Login(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -95,7 +95,7 @@ class Testget(APIView):
         return Response(serializer.data)
 
 
-class Testpost(APIView):
+class Logout(APIView):
     def post(self, request, format=None):
         response = Response()
         response.delete_cookie('jwt')
