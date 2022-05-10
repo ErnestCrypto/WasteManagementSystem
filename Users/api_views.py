@@ -155,8 +155,8 @@ class Payments_list(APIView):
         if not token:
             raise AuthenticationFailed('Unauthorized user')
         else:
-            user = Payments.objects.all()
-            serializer = PaymentsSerializers(user, many=True)
+            payment = Payments.objects.all()
+            serializer = PaymentsSerializers(payment, many=True)
             return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -171,19 +171,70 @@ class Payments_list(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class Pricings_list(generics.ListCreateAPIView):
-    queryset = Pricings.objects.all()
-    serializer_class = PricingsSerializer
+class Pricings_list(APIView):
+    def get(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            pricing = Pricings.objects.all()
+            serializer = PricingsSerializer(pricing, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            serializer = PricingsSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class Requests_list(generics.ListCreateAPIView):
-    queryset = Requests.objects.all()
-    serializer_class = RequestsSerializer
+class Requests_list(APIView):
+    def get(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            request = Requests.objects.all()
+            serializer = RequestsSerializer(request, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            serializer = RequestsSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class HelpCenter_list(generics.ListCreateAPIView):
-    queryset = HelpCenter.objects.all()
-    serializer_class = HelpCenterSerializer
+class HelpCenter_list(APIView):
+    def get(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            help = HelpCenter.objects.all()
+            serializer = HelpCenterSerializer(help, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            serializer = HelpCenterSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     """
     Retrieve, Update and destroy model instances.
