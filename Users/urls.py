@@ -1,14 +1,9 @@
 from django.urls import path
 from Users import api_views
-from rest_framework_simplejwt import views as jwt_views
 
 app_name = 'UsersUrls'
 
 urlpatterns = [
-    path('api/', jwt_views.TokenObtainPairView.as_view(),
-         name='token_obtain_pair'),
-    path('api_refresh', jwt_views.TokenRefreshView.as_view(),
-         name='token_refresh'),
     path('test/', api_views.Test.as_view(), name="test"),
     path('logged/', api_views.LoggedInUsers.as_view(), name="testpost"),
     path('logout/', api_views.Logout.as_view(), name="testpost"),
