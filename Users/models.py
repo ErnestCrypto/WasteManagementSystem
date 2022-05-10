@@ -1,14 +1,6 @@
 # Creating our models from the Login
 from django.db import models
 from Basemodel.models import TYPE, DAYS
-from pygments.lexers import get_lexer_by_name
-from pygments.formatters.html import HtmlFormatter
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth import get_user_model
 
 
 class User(models.Model):

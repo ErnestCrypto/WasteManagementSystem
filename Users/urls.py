@@ -1,6 +1,5 @@
 from django.urls import path
 from Users import api_views
-from rest_framework.authtoken import views
 from rest_framework_simplejwt import views as jwt_views
 
 app_name = 'UsersUrls'

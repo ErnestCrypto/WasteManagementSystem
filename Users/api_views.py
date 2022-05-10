@@ -5,25 +5,12 @@ from .serializers import UserSerializers, PaymentsSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
 from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenterSerializer
 from django.http import Http404
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import status
-from rest_framework.authtoken.models import Token
-from rest_framework import permissions
-from .permissions import IsOwnerOrReadOnly
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework_jwt.settings import api_settings
 from rest_framework.permissions import AllowAny
-from rest_framework_simplejwt.tokens import RefreshToken
-from datetime import timedelta
 import jwt
 import datetime
 
