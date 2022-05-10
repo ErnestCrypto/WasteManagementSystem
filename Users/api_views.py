@@ -126,15 +126,49 @@ class Auth(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class User_list(generics.ListCreateAPIView):
+class User_list(APIView):
 
-    queryset = User.objects.all()
-    serializer_class = UserSerializers
+    def get(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            user = User.objects.all()
+            serializer = UserSerializers(user, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            serializer = UserSerializers(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class Payments_list(generics.ListCreateAPIView):
-    queryset = Payments.objects.all()
-    serializer_class = PaymentsSerializers
+class Payments_list(APIView):
+    def get(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            user = Payments.objects.all()
+            serializer = PaymentsSerializers(user, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            serializer = PaymentsSerializers(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Pricings_list(generics.ListCreateAPIView):

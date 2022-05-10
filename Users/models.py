@@ -12,7 +12,8 @@ class User(models.Model):
     pricing = models.CharField(max_length=255)
     day = models.IntegerField(choices=DAYS, default=None)
     balance = models.CharField(max_length=255)
-    profile = models.ImageField(upload_to='images/')
+    profile = models.ImageField(
+        upload_to='images/', null=True, blank=True, default=None)
     contact = models.IntegerField()
 
     class Meta:
