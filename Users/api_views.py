@@ -31,7 +31,6 @@ class Test(APIView):
 
     def post(self, request, format=None):
         email = request.data['email']
-        password = request.data['password']
         user = User.objects.filter(email=email).first()
 
         if user is None:
