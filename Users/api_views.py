@@ -91,7 +91,6 @@ class Logout(APIView):
 
 
 class Auth(APIView):
-    permission_classes = (AllowAny,)
 
     def get_object(self, request):
         try:
@@ -166,12 +165,16 @@ class Auth_details(APIView):
             raise Http404
 
     def post(self, request, format=None):
-        Login_valid = self.get_object(request)
-        if Login_valid is None:
-            pass
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
         else:
-            serializer = UserSerializers(Login_valid)
-            return Response(serializer.data)
+            Login_valid = self.get_object(request)
+            if Login_valid is None:
+                pass
+            else:
+                serializer = UserSerializers(Login_valid)
+                return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
