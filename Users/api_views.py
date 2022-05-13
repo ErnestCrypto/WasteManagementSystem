@@ -252,7 +252,7 @@ class Auth_details(APIView):
     def post(self, request, format=None):
         token = request.COOKIES.get('jwt')
         if not token:
-            raise AuthenticationFailed('Unauthorized user')
+            raise AuthenticationFailed('Unauthorized user!')
         else:
             Login_valid = self.get_object(request)
             if Login_valid is None:
