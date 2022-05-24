@@ -5,7 +5,9 @@ export const primaryColor = "#4BB35E";
 export const primaryColorDark = "#0E6A41";
 export const primaryColorLight = "#D7F9DE";
 export const defaultColor = "#999999";
+export const defaultColorLight = "#8889A0";
 export const colorWhite = "#fff";
+export const secondaryColor = "#171A66";
 
 export const defaultView = {
   flex: 1,

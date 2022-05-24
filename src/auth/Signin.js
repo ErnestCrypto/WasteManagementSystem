@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -50,5 +50,3 @@ const Signin = ({ navigation }) => {
 };
 
 export default Signin;
-
-const styles = StyleSheet.create({});

@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -18,7 +18,7 @@ const Signup = ({ navigation }) => {
   return (
     <SafeAreaView style={defaultViewWithoutPadding}>
       <StyledUpperHeader>
-        <StyledUpperText style={{ flex: "0 0 20" }}>
+        <StyledUpperText>
           <StyledMainText>Let's get you started!</StyledMainText>
           <StyledSubText>
             To become a member, first create an account
@@ -48,5 +48,3 @@ const Signup = ({ navigation }) => {
 };
 
 export default Signup;
-
-const styles = StyleSheet.create({});
