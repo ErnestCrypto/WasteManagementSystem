@@ -3,6 +3,10 @@ from rest_framework import serializers
 from .models import Administrators, Drivers, Trucks
 from Basemodel.models import Pricings, Requests, HelpCenter
 
+"""
+    Creating our serializer classes to serialize our models
+    """
+
 
 class AdministratorsSerializer(serializers.ModelSerializer):
     class Meta:

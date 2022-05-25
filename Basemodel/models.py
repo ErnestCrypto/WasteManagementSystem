@@ -1,7 +1,11 @@
 # Creating the basemodels
 from django.db import models
 
+"""
+    Creating a base model to act as a perent model for all other models to inherent from
+    """
 
+# Creating our choices list
 DAYS = [
     (1, 'MONDAY'),
     (2, 'TUESDAY'),
