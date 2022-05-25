@@ -1,10 +1,10 @@
+# Creating our urls for routing
 from django.urls import path
 from Users import api_views
 
 app_name = 'UsersUrls'
 
 urlpatterns = [
-    path('test/', api_views.Test.as_view(), name="test"),
     path('logged/', api_views.LoggedInUsers.as_view(), name="logged"),
     path('logout/', api_views.Logout.as_view(), name="logout"),
     path('auth/', api_views.Auth.as_view(), name="auth"),

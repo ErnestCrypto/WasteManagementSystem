@@ -19,40 +19,6 @@ import datetime
 """
 
 
-class Test(APIView):
-    permission_classes = (AllowAny,)
-
-    def get_object(self, request):
-        try:
-            return User.objects.get(
-                email=request.data['email'], password=request.data['password'])
-        except User.DoesNotExist:
-            raise Http404
-
-    def post(self, request, format=None):
-        email = request.data['email']
-        user = User.objects.filter(email=email).first()
-
-        if user is None:
-            raise AuthenticationFailed('User not found!')
-
-        payload = {
-            'id': user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
-        }
-
-        token = jwt.encode(payload, 'secret',
-                           algorithm='HS256').decode('utf-8')
-
-        response = Response()
-        response.set_cookie(key='jwt', value=token, httponly=True)
-        response.data = {
-            'jwt': token
-        }
-        return response
-
-
 class LoggedInUsers(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
@@ -75,19 +41,6 @@ class Logout(APIView):
             'message': 'logout successful'
         }
         return response
-
-
-"""
-    {
-        "email": "akotobamfo.eab@gmail.com",
-        "password": "laptop"
-    }
-
-{
-     "id": "1"
-    
-}
-"""
 
 
 class Auth(APIView):
