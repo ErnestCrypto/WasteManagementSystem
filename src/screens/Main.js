@@ -1,20 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import styled from "styled-components/native";
-import { Link } from "react-router-native";
+import { Location, Clock, Diamonds } from "iconsax-react-native";
 import {
-  Notification,
-  Setting2,
-  Location,
-  Clock,
-  Diamonds,
-} from "iconsax-react-native";
-import {
-  defaultColor,
-  defaultColorLight,
+  welcomeMain,
+  welcomeSub,
   secondaryColor,
   primaryColor,
   colorWhite,
+  StyledContainer,
+  StyledHeader,
+  StyledHeaderText,
 } from "../helpers/Variables";
 
 const Main = () => {
@@ -22,17 +18,9 @@ const Main = () => {
     <StyledMain>
       <StyledWelcome>
         <StyledWelcomeText>
-          <Text style={styles.welcomeMain}>Hi, Nana Yaw</Text>
-          <Text style={styles.welcomeSub}>Welcome back!</Text>
+          <Text style={welcomeMain}>Hi, Nana Yaw</Text>
+          <Text style={welcomeSub}>Welcome back!</Text>
         </StyledWelcomeText>
-        <StyledIcons>
-          <Link to>
-            <Notification size="24" color={defaultColor} />
-          </Link>
-          <Link>
-            <Setting2 size="24" color={defaultColor} />
-          </Link>
-        </StyledIcons>
       </StyledWelcome>
       <StyledUserLocation>
         <View style={styles.location}>
@@ -107,12 +95,7 @@ const styles = StyleSheet.create({
   locationText: {
     color: secondaryColor,
   },
-  welcomeMain: { color: defaultColorLight, fontSize: 15 },
-  welcomeSub: {
-    color: secondaryColor,
-    fontSize: 22,
-    fontWeight: "bold",
-  },
+
   userData: {
     backgroundColor: primaryColor,
     width: "100%",
@@ -142,27 +125,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const StyledMain = styled.View`
-  flex: 0 0 90%;
-`;
+const StyledMain = styled(StyledContainer)``;
 
-const StyledWelcome = styled.View`
-  flex-direction: row;
-  flex: 0 0 10%;
-`;
+const StyledWelcome = styled(StyledHeader)``;
 
-const StyledWelcomeText = styled.View`
-  flex: 0 0 70%;
-  justify-content: center;
-  justify-content: space-evenly;
-`;
-
-const StyledIcons = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  flex: 1;
-`;
+const StyledWelcomeText = styled(StyledHeaderText)``;
 
 const StyledUserLocation = styled.View`
   flex: 0 0 10%;

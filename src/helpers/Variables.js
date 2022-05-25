@@ -66,3 +66,27 @@ export const StyledInputContainer = styled.View`
   align-items: center;
   flex: 1;
 `;
+
+export const StyledContainer = styled.View`
+  position: relative;
+  flex: 5;
+`;
+
+export const welcomeMain = { color: defaultColorLight, fontSize: 15 };
+
+export const welcomeSub = {
+  color: secondaryColor,
+  fontSize: 22,
+  fontWeight: "bold",
+};
+
+export const StyledHeader = styled.View`
+  flex-direction: row;
+  flex: 0 0 10%;
+`;
+
+export const StyledHeaderText = styled.View`
+  flex: 0 0 70%;
+  justify-content: center;
+  justify-content: space-evenly;
+`;

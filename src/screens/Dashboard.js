@@ -9,10 +9,12 @@ import Payment from "./Payment";
 import Profile from "./Profile";
 import Main from "./Main";
 import NavBar from "../components/NavBar";
+import HeaderIcons from "../components/HeaderIcons";
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
   return (
     <SafeAreaView style={defaultView}>
+      <HeaderIcons />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/requests" element={<Request />} />
