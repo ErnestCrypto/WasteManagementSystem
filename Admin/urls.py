@@ -4,6 +4,8 @@ from Admin import api_views
 app_name = 'AdminUrls'
 
 urlpatterns = [
+    path('auth/', api_views.Auth.as_view(),
+         name="auth"),
     path('admins/', api_views.Adminstrators_list.as_view(),
          name="administrators_list"),
     path('admins/<int:pk>', api_views.Adminstrators_details.as_view(),
