@@ -29,3 +29,12 @@ class Payments(models.Model):
 
     class Meta:
         verbose_name_plural = ('Payments')
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(User, related_name='User',
+                             on_delete=models.CASCADE, blank=True, default=None, null=True)
+    durationStart = models.IntegerField(default=None)
+    durationEnd = models.IntegerField(default=None)
+    name = models.CharField(max_length=255, default=None)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=None)

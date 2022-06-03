@@ -1,7 +1,7 @@
 # Creating our API views
 from rest_framework import generics
-from .models import User, Payments
-from .serializers import UserSerializers, PaymentsSerializers
+from .models import User, Payments, Subscription
+from .serializers import UserSerializers, PaymentsSerializers, SubscriptionSerializers
 from Basemodel.models import Pricings, Requests, HelpCenter
 from Admin.serializers import PricingsSerializer, RequestsSerializer, HelpCenterSerializer
 from django.http import Http404
@@ -12,6 +12,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import status
 import jwt
 import datetime
+from django.contrib import messages
 
 """
     List all the model instance or create a  model instance
@@ -21,6 +22,36 @@ import datetime
 class Create(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializers
+
+
+class Subscribe(APIView):
+    def get(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            subscribe = Subscription.objects.all()
+            serializer = SubscriptionSerializers(subscribe, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            try:
+                payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+            except jwt.ExpiredSignatureError:
+                raise AuthenticationFailed('Unauthorized user')
+            users = User.objects.filter(id=payload['id']).first()
+            serializer = SubscriptionSerializers(data=request.data)
+
+            if serializer.is_valid():
+                serializer.save(user=users)
+                messages.success(request, f"{users}")
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoggedInUsers(APIView):

@@ -1,6 +1,16 @@
 # Registering our models
 from django.contrib import admin
-from Users.models import User, Payments
+from Users.models import User, Payments, Subscription
+
+
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = [
+        'durationStart',
+        'durationEnd',
+        'name',
+        'price',
+    ]
 
 
 @admin.register(User)
