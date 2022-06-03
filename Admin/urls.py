@@ -10,6 +10,8 @@ urlpatterns = [
          name="auth"),
     path('logout/', api_views.Logout.as_view(),
          name="auth"),
+    path('create/', api_views.Create.as_view(),
+         name="create"),
     path('admins/', api_views.Adminstrators_list.as_view(),
          name="administrators_list"),
     path('admins/<int:pk>', api_views.Adminstrators_details.as_view(),

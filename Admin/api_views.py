@@ -16,13 +16,18 @@ List all models instances or create a new instance
 """
 
 
+class Create(generics.ListCreateAPIView):
+    queryset = Administrators.objects.all()
+    serializer_class = AdministratorsSerializer
+
+
 class Auth(APIView):
     def get_object(self, request):
         try:
             admin = Administrators.objects.get(
                 email=request.data['email'], password=request.data['password'])
             return admin
-        except admin.DoesNotExist:
+        except Administrators.DoesNotExist:
             raise Http404
 
     def post(self, request, format=None):
@@ -75,9 +80,26 @@ class Logout(APIView):
         return response
 
 
-class Adminstrators_list(generics.ListCreateAPIView):
-    queryset = Administrators.objects.all()
-    serializer_class = AdministratorsSerializer
+class Adminstrators_list(APIView):
+    def get(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            admin = Administrators.objects.all()
+            serializer = AdministratorsSerializer(admin, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        else:
+            serializer = AdministratorsSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Drivers_list(generics.ListCreateAPIView):
