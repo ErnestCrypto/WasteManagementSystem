@@ -1,9 +1,10 @@
 const SET_AUTH = "SET_AUTH";
 const RESET_AUTH = "RESET_AUTH";
 
-const setAuth = () => {
+const setAuth = (data) => {
   return {
     type: SET_AUTH,
+    payload: data,
   };
 };
 

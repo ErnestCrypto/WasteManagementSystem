@@ -1,7 +1,10 @@
-import { Text } from "react-native";
+import { Text, KeyboardAvoidingView } from "react-native";
 import React from "react";
+import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
+  colorWhite,
+  defaultColor,
   defaultViewWithoutPadding,
   StyledInputContainer,
   StyledLowerHeader,
@@ -12,7 +15,6 @@ import {
   textLower,
 } from "../helpers/Variables";
 import Buttons from "../components/Buttons";
-import Input from "../components/Input";
 
 const Signup = ({ navigation }) => {
   return (
@@ -24,12 +26,29 @@ const Signup = ({ navigation }) => {
             To become a member, first create an account
           </StyledSubText>
         </StyledUpperText>
-        <StyledInputContainer>
-          <Input placeholder="Username" />
-          <Input placeholder="Email address" />
-          <Input placeholder="Password" />
-          <Input placeholder="Confirm Password" />
-        </StyledInputContainer>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+          <StyledInputContainer>
+            <InputField
+              placeholderColor={defaultColor}
+              placeholder="Username"
+            />
+            <InputField
+              placeholderColor={defaultColor}
+              keyboardType="email-address"
+              placeholder="Email address"
+            />
+            <InputField
+              placeholderColor={defaultColor}
+              secureTextEntry={true}
+              placeholder="Password"
+            />
+            <InputField
+              placeholderColor={defaultColor}
+              secureTextEntry={true}
+              placeholder="Confirm Password"
+            />
+          </StyledInputContainer>
+        </KeyboardAvoidingView>
       </StyledUpperHeader>
       <StyledLowerHeader>
         <Buttons type="primary" text="create account" />
@@ -48,3 +67,10 @@ const Signup = ({ navigation }) => {
 };
 
 export default Signup;
+
+const InputField = styled.TextInput`
+  background-color: ${colorWhite};
+  width: 280px;
+  padding: 15px 30px;
+  border-radius: 10px;
+`;

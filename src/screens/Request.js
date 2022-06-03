@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import styled from "styled-components/native";
 import {
@@ -21,7 +21,18 @@ const Request = () => {
       <StyledRequestNew>
         <AddButton />
       </StyledRequestNew>
-      <Tabs name="all requests" tabs={["active", "success", "rejected"]} />
+      <Tabs title="all requests" tabs={["active", "success", "rejected"]} />
+      <View
+        style={{
+          flex: 0.8,
+          marginTop: 10,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text>No requests made</Text>
+      </View>
     </StyledRequest>
   );
 };

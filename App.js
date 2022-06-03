@@ -7,7 +7,7 @@ import { NativeRouter } from "react-router-native";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import allReducers from "./src/redux/redux";
+import allReducers from "./src/redux/allReducers";
 
 //imports for screens and components
 import Home from "./src/screens/Home";
@@ -31,7 +31,7 @@ export default function App() {
       <NativeRouter>
         <NavigationContainer>
           <Stack.Navigator
-            initialRoute="Dashboard"
+            initialRouteName="Home"
             screenOptions={{ headerShown: false }}
           >
             <Stack.Screen name="Home" component={Home} />

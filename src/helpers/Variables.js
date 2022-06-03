@@ -27,7 +27,7 @@ export const textLower = {
 };
 
 export const StyledUpperHeader = styled.View`
-  flex: 0 0 58%;
+  flex: 1;
   display: flex;
   background-color: ${primaryColor};
   justify-content: space-around;
@@ -35,7 +35,7 @@ export const StyledUpperHeader = styled.View`
 `;
 
 export const StyledLowerHeader = styled.View`
-  flex: 1;
+  flex: 0.8;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -43,7 +43,7 @@ export const StyledLowerHeader = styled.View`
 `;
 
 export const StyledUpperText = styled.View`
-  flex: 0 0 40%;
+  flex: 0.4;
   text-align: center;
   justify-content: space-evenly;
   align-items: center;

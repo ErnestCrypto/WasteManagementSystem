@@ -7,6 +7,7 @@ import {
   defaultColor,
   primaryColor,
   primaryColorLight,
+  secondaryColor,
 } from "../helpers/Variables";
 
 const NavBar = () => {
@@ -41,7 +42,7 @@ const NavBar = () => {
         </View>
         <View>
           <Link to="/profile" underlayColor="transparent">
-            <StyledProfile></StyledProfile>
+            <StyledProfile active={pathname === "/payments"}></StyledProfile>
           </Link>
         </View>
       </StyledNavBar>
@@ -68,5 +69,9 @@ const StyledNavBar = styled.View`
 `;
 
 const StyledProfile = styled.View`
-  background: ${primaryColor};
+  background: ${secondaryColor};
+  width: 24px;
+  height: 24px;
+  border-radius: 100px;
+  border: 1px solid ${(props) => (props.active ? primaryColor : defaultColor)};
 `;

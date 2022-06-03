@@ -1,23 +1,16 @@
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import { secondaryColor } from "../helpers/Variables";
+import Tab from "./Tab";
 
-const Tab = ({ name }) => {
-  return (
-    <StyledTab activeOpacity={0.8}>
-      <StyledTabText>{name}</StyledTabText>
-    </StyledTab>
-  );
-};
-
-const Tabs = ({ name, tabs }) => {
+const Tabs = ({ title, tabs }) => {
   return (
     <StyledTabs>
-      <StyledTabsText>{name}</StyledTabsText>
+      <StyledTabsText>{title}</StyledTabsText>
       <StyledTabsView>
         {tabs.map((tab, index) => (
-          <Tab name={tab} key={index} />
+          <Tab key={index} name={tab} />
         ))}
       </StyledTabsView>
     </StyledTabs>
@@ -45,13 +38,5 @@ const StyledTabsText = styled.Text`
   font-size: 15px;
   text-transform: capitalize;
   color: ${secondaryColor};
-`;
-
-const StyledTab = styled.TouchableOpacity`
-  border-radius: 100px;
-`;
-
-const StyledTabText = styled.Text`
-  font-size: 12px;
-  text-transform: capitalize;
+  flex: 0.4;
 `;

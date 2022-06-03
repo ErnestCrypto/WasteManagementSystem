@@ -1,7 +1,8 @@
-import { Text } from "react-native";
-import React from "react";
+import { Text, KeyboardAvoidingView } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
+  defaultColor,
   defaultViewWithoutPadding,
   StyledInputContainer,
   StyledLowerHeader,
@@ -10,11 +11,30 @@ import {
   StyledUpperHeader,
   StyledUpperText,
   textLower,
+  colorWhite,
 } from "../helpers/Variables";
 import Buttons from "../components/Buttons";
-import Input from "../components/Input";
+import { useDispatch } from "react-redux";
+import { getUserId } from "../api/api";
+import styled from "styled-components/native";
 
 const Signin = ({ navigation }) => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    console.log(email, password);
+
+    if (!(email && password)) {
+      return alert("Fill all credentials to continue");
+    }
+
+    getUserId(email, password)
+      .then((user) => console.log(user))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <SafeAreaView style={defaultViewWithoutPadding}>
       <StyledUpperHeader>
@@ -25,16 +45,31 @@ const Signin = ({ navigation }) => {
           </StyledSubText>
         </StyledUpperText>
         <StyledInputContainer>
-          <Input placeholder="Email address" />
-          <Input placeholder="Password" />
+          <KeyboardAvoidingView
+            style={{
+              flex: 1,
+              justifyContent: "space-evenly",
+              alignSelf: "center",
+            }}
+          >
+            <InputField
+              type="email"
+              placeholderColor={defaultColor}
+              placeholder="Email address"
+              onChangeText={(text) => setEmail(text)}
+            />
+            <InputField
+              secureTextEntry={true}
+              type="password"
+              placeholderColor={defaultColor}
+              placeholder="Password"
+              onChangeText={(text) => setPassword(text)}
+            />
+          </KeyboardAvoidingView>
         </StyledInputContainer>
       </StyledUpperHeader>
       <StyledLowerHeader>
-        <Buttons
-          type="primary"
-          text="sign in"
-          press={() => navigation.navigate("Dashboard")}
-        />
+        <Buttons type="primary" text="sign in" press={handleLogin} />
         <Buttons
           type="secondary"
           text="don't have an account?"
@@ -50,3 +85,10 @@ const Signin = ({ navigation }) => {
 };
 
 export default Signin;
+
+const InputField = styled.TextInput`
+  background-color: ${colorWhite};
+  width: 280px;
+  padding: 15px 30px;
+  border-radius: 10px;
+`;
