@@ -5,7 +5,7 @@ from Basemodel.models import DAYS
 
 class Administrators(models.Model):
     username = models.CharField(max_length=255, default=None, null=True)
-    profile = models.ImageField(upload_to='images/', default=None)
+    profile = models.ImageField(upload_to='images/', default=None, null=True)
     email = models.EmailField(default=None)
     password = models.CharField(max_length=255, default=None)
     contact = models.TextField(default=None)

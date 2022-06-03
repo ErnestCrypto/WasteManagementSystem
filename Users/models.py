@@ -17,7 +17,6 @@ class User(models.Model):
     contact = models.TextField(default=None)
 
     class Meta:
-
         verbose_name_plural = ('Users')
 
 
