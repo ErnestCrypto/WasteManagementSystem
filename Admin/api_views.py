@@ -51,6 +51,30 @@ class Auth(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LoggedInUsers(APIView):
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthorized user')
+        try:
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthorized user')
+        admin = Administrators.objects.filter(id=payload['id']).first()
+        serializer = AdministratorsSerializer(admin)
+        return Response(serializer.data)
+
+
+class Logout(APIView):
+    def post(self, request, format=None):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'logout successful'
+        }
+        return response
+
+
 class Adminstrators_list(generics.ListCreateAPIView):
     queryset = Administrators.objects.all()
     serializer_class = AdministratorsSerializer
