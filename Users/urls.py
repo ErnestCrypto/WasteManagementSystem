@@ -8,6 +8,7 @@ urlpatterns = [
     path('logged/', api_views.LoggedInUsers.as_view(), name="logged"),
     path('logout/', api_views.Logout.as_view(), name="logout"),
     path('auth/', api_views.Auth.as_view(), name="auth"),
+    path('create/', api_views.Create.as_view(), name="auth"),
     path('auth_details/', api_views.Auth_details.as_view(), name="auth_details"),
     path('users/', api_views.User_list.as_view(), name="user_list"),
     path('users/<int:pk>/',

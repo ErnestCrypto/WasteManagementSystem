@@ -18,6 +18,11 @@ import datetime
 """
 
 
+class Create(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializers
+
+
 class LoggedInUsers(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
