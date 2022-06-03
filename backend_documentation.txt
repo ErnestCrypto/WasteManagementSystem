@@ -1,0 +1,5 @@
+API DOCUMENTATION LINKS
+Users: https://documenter.getpostman.com/view/16404047/Uz5DowLW
+Admin: https://documenter.getpostman.com/view/16404047/Uz5GnvVn
+
+A guide for how each section works would be displayed when any of the links are clicked.
