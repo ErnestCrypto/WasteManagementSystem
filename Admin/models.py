@@ -8,7 +8,7 @@ class Administrators(models.Model):
     profile = models.ImageField(upload_to='images/', default=None)
     email = models.EmailField(default=None)
     password = models.CharField(max_length=255, default=None)
-    contact = models.IntegerField(default=None)
+    contact = models.TextField(default=None)
 
     class Meta:
         verbose_name_plural = ('Administrators')

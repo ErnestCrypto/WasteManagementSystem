@@ -14,7 +14,7 @@ class User(models.Model):
     balance = models.CharField(max_length=255)
     profile = models.ImageField(
         upload_to='images/', null=True, blank=True, default=None)
-    contact = models.IntegerField()
+    contact = models.TextField(default=None)
 
     class Meta:
 
