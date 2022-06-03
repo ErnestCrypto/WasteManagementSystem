@@ -14,7 +14,7 @@ import jwt
 import datetime
 
 """
-    List all the models instance or create a  model instance
+    List all the model instance or create a  model instance
 """
 
 
